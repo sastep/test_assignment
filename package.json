@@ -10,7 +10,7 @@
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.js --mode development --hot",
     "build": "webpack --mode production",
-    "lint": "./node_modules/.bin/tslint --project tsconfig.json -c tslint.json 'src/**/*.tsx'"
+    "lint": "tslint -c tslint.json 'src/**/*.tsx'"
   },
   "author": "Sargis Stepanyan",
   "license": "ISC",

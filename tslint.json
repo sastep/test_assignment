@@ -5,6 +5,7 @@
     "import-name": false,
     "variable-name": false,
     "max-line-length": [ true, 120 ],
+    "no-boolean-literal-compare": false,
     "ter-computed-property-spacing": false
   }
 }

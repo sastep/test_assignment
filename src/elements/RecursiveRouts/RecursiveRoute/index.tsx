@@ -84,8 +84,8 @@ class RecursiveRoute extends PureComponent<IRecursiveRouteProps> {
       : (this.props.rootSections || {}).payload;
 
     return (
-      <div className="flex-box horizontal no-shrink sections-wrapper">
-        <LoadWrapper loading={loading}>
+      <div className="flex-box horizontal no-shrink no-wrap j-start sections-wrapper">
+        <LoadWrapper loading={loading} className="no-grow">
           <ul className="sections">
             {sections
               ? (Object.values(sections).map((section) => {
