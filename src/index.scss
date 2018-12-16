@@ -22,6 +22,7 @@ html {
 }
 *, *:before, *:after {
     box-sizing: border-box;
+    font-family: monospace !important;
 }
 
 html,
@@ -89,5 +90,18 @@ button, input {
     }
     &.j-around {
         justify-content: space-around;
+    }
+}
+
+.app-root {
+    padding-bottom: 10px;
+
+    &__title {
+        color: #fff;
+        padding: 10px;
+        font-size: 24px;
+        background: #555;
+        text-align: center;
+        margin-bottom: 10px;
     }
 }

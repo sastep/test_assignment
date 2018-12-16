@@ -1,9 +1,5 @@
 import data from './endpoint.json';
 
-import {
-  ISectionData,
-} from './types';
-
 const subSections = data.subSections;
 
 export const getRootSections = (): Promise<ISectionData> => {

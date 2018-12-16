@@ -6,9 +6,8 @@ import {
 } from '../actionTypes';
 
 import { getRootSections } from '../../../api/api';
-import { ISectionData } from '../../../api/types';
 
-export const fetchRootSections = () => (dispatch: Dispatch): void => {
+export const fetchRootSections = () => (dispatch: Dispatch<IActionType<IAPIResponse<ISectionData>>>): void => {
   dispatch({
     type: GET_ROOT_SECTIONS_PENDING,
   });

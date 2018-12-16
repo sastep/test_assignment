@@ -1,7 +1,10 @@
 {
   "extends": "tslint-config-airbnb",
   "rules": {
+    "semicolon": false,
     "import-name": false,
-    "max-line-length": [ true, 120 ]
+    "variable-name": false,
+    "max-line-length": [ true, 120 ],
+    "ter-computed-property-spacing": false
   }
 }

@@ -1,72 +1,56 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import {
-  Route,
-  Switch,
-  Link,
-} from 'react-router-dom';
 
 import {
   LoadWrapper,
 } from './components/index';
 
 import {
-  MainRoute,
+  RecursiveRoutes,
 } from './elements/index';
 
 import { fetchRootSections } from './actions/root-sections';
 
 import './index.scss';
 
-import { ISectionData } from '../api/types';
-
-type OwnProps = {};
-
 type StoreProps = {
-  rootSections: {
-    status?: number,
-    payload?: ISectionData,
-  },
+  rootSections?: IAPIResponse<ISectionData>,
 };
 
 type DispatchProps = {
-  fetchRootSections: () => void,
+  fetchRootSections?: () => void,
 };
 
-type IAppProps = StoreProps & DispatchProps & OwnProps;
+type IAppProps = StoreProps & DispatchProps;
 
-const A = () => (<div className='flex-box'>aaaaaaaaaaaaaa</div>);
-
-class App extends React.PureComponent<IAppProps> {
-  componentDidMount() {
+class App extends PureComponent<IAppProps> {
+  componentDidMount(): void {
     this.props.fetchRootSections();
   }
 
   render(): React.ReactNode {
-    console.log('Log ::: this.props :::', this.props);
+    const loading: boolean = this.props.rootSections.status !== 2;
+
     return (
-      <LoadWrapper loading={this.props.rootSections.status !== 2}>
+      <LoadWrapper loading={loading} className="app-root">
         <div className="flex-box no-grow">
-          <Link to="/1.1"><h1>Test Assignment</h1></Link>
+          <h1 className="app-root__title">Test Assignment</h1>
         </div>
 
-          <Switch>
-            <Route path="/:ids?" component={MainRoute}/>
-          </Switch>
-
+        {!loading && <RecursiveRoutes />}
       </LoadWrapper>
     );
   }
 }
 
-const mapStateToProps = (store) => {
+const mapStateToProps = (store: IStoreData): StoreProps => {
   return ({
     rootSections: store.rootSections,
   });
 };
 
-const mapDispatchToProps = {
+const mapDispatchToProps: DispatchProps = {
   fetchRootSections,
 };
 
-export default connect<StoreProps, DispatchProps, OwnProps>(mapStateToProps, mapDispatchToProps)(App);
+export default connect<StoreProps, DispatchProps>(mapStateToProps, mapDispatchToProps)(App);

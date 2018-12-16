@@ -8,13 +8,13 @@ import {
 
 import { getSubSections } from '../../../api/api';
 
-export const fetchSubSections = (id: string) => (dispatch: Dispatch): void => {
+export const fetchSubSections = (id: string) => (dispatch: Dispatch<IActionType<IAPIResponse<ISectionData>>>): void => {
   dispatch({
     type: GET_SUB_SECTIONS_PENDING,
   });
 
   getSubSections(id)
-    .then((subSections) => {
+    .then((subSections: {[key: string]: ISectionData}) => {
       dispatch({
         type: GET_SUB_SECTIONS_SUCCESS,
         payload: {
@@ -24,9 +24,9 @@ export const fetchSubSections = (id: string) => (dispatch: Dispatch): void => {
     });
 };
 
-export const removeSubSections = (ids: string[]) => (dispatch: Dispatch): void => {
+export const removeSubSections = (id: string) => (dispatch: Dispatch<IActionType<string>>): void => {
   dispatch({
     type: REMOVE_SUB_SECTIONS_SUCCESS,
-    payload: ids,
+    payload: id,
   });
 };

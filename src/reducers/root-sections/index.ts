@@ -3,12 +3,15 @@ import {
   GET_ROOT_SECTIONS_PENDING,
 } from '../../actions/actionTypes';
 
-const initialStore = {
+const initialStore: IAPIResponse<ISectionData> = {
   status: 0,
   payload: {},
 };
 
-export const rootSections = (store = initialStore, action) => {
+export const rootSections = (
+  store: IAPIResponse<ISectionData> = initialStore,
+  action: IActionType<ISectionData>,
+): IAPIResponse<ISectionData> => {
   switch (action.type) {
     case GET_ROOT_SECTIONS_SUCCESS: {
       return ({
