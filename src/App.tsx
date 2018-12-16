@@ -37,7 +37,9 @@ class App extends PureComponent<IAppProps> {
           <h1 className="app-root__title">Test Assignment</h1>
         </div>
 
-        {!loading && <RecursiveRoutes />}
+        <div className="flex-box horizontal sections-root">
+          {!loading && <RecursiveRoutes />}
+        </div>
       </LoadWrapper>
     );
   }
