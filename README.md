@@ -1,6 +1,6 @@
 # Test Assignment
 
-One Paragraph of project description goes here
+This project is created for share some of my ReactJS/Redux/SCSS/Webpack/Typescript skills.  
 
 ## Getting Started
 
