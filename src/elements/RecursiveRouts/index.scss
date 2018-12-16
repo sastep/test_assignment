@@ -1,7 +1,10 @@
 .sections-wrapper {
   .sections {
-    height: 100%;
     margin: 0 10px;
+  }
+
+  .sections-list {
+    height: 100%;
     list-style: none;
     background: #555;
     min-width: 300px;

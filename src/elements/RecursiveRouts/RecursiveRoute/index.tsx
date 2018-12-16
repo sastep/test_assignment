@@ -85,27 +85,29 @@ class RecursiveRoute extends PureComponent<IRecursiveRouteProps> {
 
     return (
       <div className="flex-box horizontal no-shrink no-wrap j-start sections-wrapper">
-        <LoadWrapper loading={loading} className="no-grow">
-          <ul className="sections">
-            {sections
-              ? (Object.values(sections).map((section) => {
-                const {
-                  id,
-                } = section;
+        <div className="flex-box horizontal no-grow sections">
+          <LoadWrapper loading={loading}>
+            <ul className="sections-list">
+              {sections
+                ? (Object.values(sections).map((section) => {
+                  const {
+                    id,
+                  } = section;
 
-                return (
-                  <li key={id}>
-                    <Link to={this.generateURL(id)} className="menu-item">{section.name.toUpperCase()}</Link>
-                  </li>
-                );
-              }))
-              : (
-                <div className="flex-box j-center a-center menu-item">
-                  <div style={{ textAlign: 'center' }}>There are no sub sections</div>
-                </div>
-              )}
-          </ul>
-        </LoadWrapper>
+                  return (
+                    <li key={id}>
+                      <Link to={this.generateURL(id)} className="menu-item">{section.name.toUpperCase()}</Link>
+                    </li>
+                  );
+                }))
+                : (
+                  <div className="flex-box j-center a-center menu-item">
+                    <div style={{ textAlign: 'center' }}>There are no sub sections</div>
+                  </div>
+                )}
+            </ul>
+          </LoadWrapper>
+        </div>
 
         <Route path={this.generateURL(':id')} component={Comp}/>
       </div>
