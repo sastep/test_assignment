@@ -15,18 +15,26 @@ import {
   removeSubSections,
 } from '../../../actions/sub-sections';
 
+import {
+  removeSectionID,
+  addSelectedSectionID,
+} from '../../../actions/selected-sections';
+
 type OwnProps = {
   match?: any,
 };
 
 type StoreProps = {
+  selectedSections?: string[],
   subSections?: IAPIResponse<ISectionData>,
   rootSections?: IAPIResponse<ISectionData>,
 };
 
 type DispatchProps = {
+  removeSectionID?: (id: string) => void,
   fetchSubSections?: (id: string) => void,
   removeSubSections?: (id: string) => void,
+  addSelectedSectionID?: (id: string) => void,
 };
 
 type IRecursiveRouteProps = StoreProps & DispatchProps & OwnProps;
@@ -39,7 +47,7 @@ class RecursiveRoute extends PureComponent<IRecursiveRouteProps> {
 
     if (match.params.id) {
       this.props.fetchSubSections(match.params.id);
-      this.props.removeSubSections(match.params.id);
+      this.addSectionIDtoSelected(match.params.id)();
     }
   }
 
@@ -54,11 +62,13 @@ class RecursiveRoute extends PureComponent<IRecursiveRouteProps> {
       && (prevProps.match.params.id !== match.params.id)
     ) {
       this.props.fetchSubSections(match.params.id);
+      this.props.removeSectionID(prevProps.match.params.id);
       this.props.removeSubSections(prevProps.match.params.id);
     }
   }
 
   componentWillUnmount(): void {
+    this.props.removeSectionID(this.props.match.params.id);
     this.props.removeSubSections(this.props.match.params.id);
   }
 
@@ -68,6 +78,18 @@ class RecursiveRoute extends PureComponent<IRecursiveRouteProps> {
     } = this.props;
 
     return (`${match.url}${match.url === '/' ? id : `/${id}`}`);
+  };
+
+  generateListItemClassName = (id: string): string => {
+    const selected = this.props.selectedSections.includes(id);
+
+    return `menu-item ${selected ? 'selected' : ''}`;
+  };
+
+  addSectionIDtoSelected = (id: string): () => void => (): void => {
+    if (!this.props.selectedSections.includes(id)) {
+      this.props.addSelectedSectionID(id);
+    }
   };
 
   render(): React.ReactNode {
@@ -95,8 +117,16 @@ class RecursiveRoute extends PureComponent<IRecursiveRouteProps> {
                   } = section;
 
                   return (
-                    <li key={id}>
-                      <Link to={this.generateURL(id)} className="menu-item">{section.name.toUpperCase()}</Link>
+                    <li
+                      key={id}
+                      onClick={this.addSectionIDtoSelected(id)}
+                    >
+                      <Link
+                        to={this.generateURL(id)}
+                        className={this.generateListItemClassName(id)}
+                      >
+                        {section.name.toUpperCase()}
+                      </Link>
                     </li>
                   );
                 }))
@@ -119,12 +149,15 @@ const mapStateToProps = (store: IStoreData): StoreProps => {
   return ({
     subSections: store.subSections,
     rootSections: store.rootSections,
+    selectedSections: store.selectedSections,
   });
 };
 
 const mapDispatchToProps: DispatchProps = {
+  removeSectionID,
   fetchSubSections,
   removeSubSections,
+  addSelectedSectionID,
 };
 
 const Comp = connect<StoreProps, DispatchProps, OwnProps>(

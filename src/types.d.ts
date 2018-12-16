@@ -17,6 +17,7 @@ declare interface ISectionData {
 declare interface IStoreData {
   rootSections: IAPIResponse<ISectionData>;
   subSections: IAPIResponse<ISectionData>;
+  selectedSections: string[];
 }
 
 declare interface IActionType<T> {
